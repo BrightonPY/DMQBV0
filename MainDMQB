@@ -1,0 +1,297 @@
+from random import randint
+import random
+#import DwarvenNames
+#from DwarvenNames import dwarfFemaleFirstNames
+#Dictionaries
+WEDict = {
+   1:"One encounter in the morning (dawn to noon)",
+   2:"One encounter in the afternoon (noon to dusk)",
+   3:"One encounter in the evening (dusk to midnight)",
+   4:"One encounter at night (midnight to dawn)",
+   5:"Two Encounters",
+   6:"Two Encounters",
+   7:"No Encounters",
+   8:"No Encounters"}
+
+EncType = {1:"Yeti", 2:"Goliath Werebear", 3: "Drag Cats", 4:"Coldlight Walker",
+   5: "Ice Troll", 6: "Frost Druid and Friends", 7: "Chardalyn Berserkers",
+   8:"Frost Giant Riding Mammoth", 9: "Battlehammer Dwarves",
+   10: "Arveiaturace (ancient white dragon)",
+   11:"Snowy Owlbear", 12: "Gnolls", 13:"Orcs of the Many-Arrows tribe",
+   14:"Goliath Party", 15:"Chwinga", 16:"Awakened Beast",
+   17:"Icewind Kobolds",18:"Humans", 19:"Herd of Beasts",
+   20:"Perytons"}
+
+
+ArcticWordsList = {
+   1:"freezing", 2:"icy", 3:"snowy", 4:"icy-cold", 5:"glacial", 6:"wintry", 7:"crisp", 8:"frosty", 9:"frigid",
+   10:"bitter", 11:"biting", 12:"piercing", 13:"numbing", 14:"sharp", 15:"polar", 16:"arctic", 17:"nippy",
+   18:"chill", 19:"hyperborean", 20:"hibernal", 21:"gelid", 22:"brumal", 23:"freezing", 24:"frozen", 25:"shivery",
+   26:"numbed", 27:"hypothermic", 28:"unconscious" , 29:"insensible", 30:"comatose", 31:"senseless", 32:"unfriendly", 33:"inhospitable",
+   34: "unwelcoming", 35:"forbidding", 36:"stony", 37:"frigid", 38:"frosty", 39:"glacial",
+   40:"austere", 41:"cold-blooded", 42:"cold-hearted", 43:"stony-hearted", 44:"standoffish", 45:"gelid"}
+
+
+#FUNCTIONS
+#Dice Rolls
+def rolld4():
+   return randint(1, 4)
+
+def rolld8():
+   return randint(1, 8)
+
+def roll12():
+   return randint(1, 12)
+
+def rolld20():
+   return randint(1, 20)
+
+def lenroll(list):
+   return randint(1, len(list))
+
+def WildernessEncounters():
+   NumberE = WEDict[rolld8()]
+   if NumberE == WEDict[7] or NumberE == WEDict[8]:
+       return print(NumberE)
+   elif NumberE == WEDict[5] or WEDict[6]:
+       print(NumberE)
+       print(WEDict[rolld4()])
+       print(EncType[rolld20()])
+       print(WEDict[rolld4()])
+       print(EncType[rolld20()])
+   else:
+       print(NumberE)
+       return print(EncType[rolld20()])
+
+
+#WEATHER EVENTS
+def WeatherEvent():
+   Weve = roll12()
+   Hrs = rolld4()
+   if Weve == 1:
+       print("Clear Skies for " + str(Hrs))
+       print("a. [No Wind] -50F. Dim Natural Light - ½  Moon / Aurora / Twilight")
+       print("Disadvantage on [Sight] Perception Checks.")
+       return
+
+   elif Weve == 2:
+       print("Light Cloud Coverage for " + str(Hrs))
+       print("[Mild Wind] -55F. Dim Natural Light: ¾ Moon / Aurora / Twilight")
+       print("Disadvantage on [Sight] Perception Checks.")
+       return
+
+   elif Weve == 3:
+       print("Overcast for " + str(Hrs))
+       print("a. [Moderate Wind] -65F. Disadvantage on Ranged Attack Rolls")
+       print("No Natural Light: [Blinded]. No [Sight] Perception Checks")
+       print("Disadvantage on Attack Rolls")
+       return
+
+   elif Weve == 4:
+       print(" Storm Clouds for " + str(Hrs))
+       print("[Severe Wind] -80F. Disadvantage on Ranged Attack Rolls")
+       print("Disadvantage on [Hearing] Perception Checks")
+       print("No Natural Light: [Blinded]")
+       print("No [Sight] Perception Checks. Disadvantage on Attack Rolls")
+       print("Extreme Cold for those without natural cold resistance.")
+       print("1/Hr DC 10 CON Saving Throw: On Fail +1 Exhaustion.")
+       return
+
+   elif Weve == 5:
+       print("Light Snow Dusting for " + str(Hrs))
+       print("a. [No Wind] -60F. Dim Natural Light: Full Moon / Aurora / Twilight")
+       print("i. Disadvantage on [Sight] Perception Checks")
+
+   elif Weve == 6:
+       print("Heavy Snowfall for " + str(Hrs))
+       print("[Mild Wind] -70F. No Natural Light: [Blinded]")
+       print("i. No [Sight] Perception Checks")
+       print("ii. Disadvantage on Attack Rolls")
+       print("b. Extreme Cold for those without cold resistance.")
+       print("i. 1/Hr DC 10 CON Saving Throw: Fail +1 Exhaustion")
+       return
+
+   elif Weve == 7:
+       Blizzard = " Blizzard for "  + str(Hrs) + """
+       a. [Moderate Wind] -90
+           i. Ranged Attack Disadvantage
+           ii. Disadvantage on [Hearing] Perception Checks
+               1. Hearing Range Reduced to 100ft
+       b. No Natural Light: [Blinded]
+           i. No [Sight] Perception Checks 
+               a. Characters without goggles are [Blinded] even in lit conditions.
+           ii. Disadvantage on Attack Rolls
+           iii. Visibility from Unnatural Lights Reduced to 30ft.
+       c. Extreme Cold for those without cold resistance.
+           i. 1/Hr DC 10 CON Saving Throw: Fail +1 Exhaustion 
+       d. Extinguishing Winds: The severe wind makes open flames, fog, tracks in the
+       snow, and non-magical flying impossible.
+       e. On turn end: Concentration Spells require DC 10 CON Saving Throw to maintain.
+       f. Veering off course - If the party travels during a blizzard:
+           i. Navigator must make a 1/Hr DC 15 Survival check.
+               1. On Fail 10-14: Party makes no progress toward destination.
+               2. On Fail 9 or lower: one random untied party member is lost. 
+               3. Group DC 15 Survival Check 1/hr to find the lost member."""
+       return print(Blizzard)
+
+   elif Weve == 8:
+       WhiteOut = """ 8. White Out """ + str(Hrs) + """
+       a. [Severe Wind] -130F
+           i. Ranged Attack Disadvantage
+           ii. Disadvantage on [Hearing] Perception Checks
+               1. Hearing Range Reduced to 30ft
+       b. No Natural Light: [Blinded]
+           i. No [Sight] Perception Checks 
+               1. Characters without goggles are [Blinded] even in lit conditions.
+           ii. Disadvantage on Attack Rolls
+           iii. Visibility from Unnatural Lights Reduced to 10ft.
+       c. Extreme Cold for those with natural cold resistance.
+           i. 1/Hr DC 10 CON Saving Throw: Fail +1 Exhaustion 
+           ii. No Cold Resist: 1/Hr DC 13 CON Saving Throw: Fail +1 Exhaustion
+       d. Extinguishing Winds: The severe wind makes open flames, fog, tracks in the
+           snow, and non-magical flying impossible.
+       e. On turn end: Concentration Spells require DC 10 CON Saving Throw to maintain.
+       f. Veering off course - If the party travels during a white out:
+           i. Navigator must make a 1/Hr DC 18 Survival check.
+               1. On Fail 18-15: Party makes no progress toward destination.
+               2. On Fail 14-10: one random untied party member is lost.
+               3. On Fail 9 or lower: one random tied party member is lost.
+               4.  Group DC 18 Survival Check 1/hr to find the lost member."""
+       return print(WhiteOut)
+
+   elif Weve == 10:
+       ExtremeFog = """
+       a. [No Wind] -55F
+       b. Dim Natural Light: Full Moon / Aurora / Twilight
+           i. Disadvantage on [Sight] Perception Checks
+           ii. Visibility from Unnatural Lights Reduced to 5ft
+       b. Veering off course - If the party travels during the extreme fog:
+           i. Navigator must make a 1/Hr DC 12 Survival check.
+               1. On Fail 11-8: Party makes no progress toward destination.
+               2. On Fail 7 or lower: one random untied party member is lost.
+               3. Group DC 12 Survival Check 1/hr to find the lost member."""
+       return print("Extreme Fog " + str(Hrs) + ExtremeFog)
+
+   elif Weve == 11:
+       LightningStorm = """
+       a. [Mild Wind] -60F
+       b. Dim Natural Light: Rapid Lightning
+           i. Disadvantage on [Sight] Perception Checks
+       c. Thunderous Threat: 
+           i. 1/Hr Booming Thunder causes an avalanche to occur in the mountains.
+           ii. Disadvantage on [Hearing] Perception Checks
+           iii. 1/Hr Players caught in the open tundra must roll a d100.
+               1. On 001: The character must make a DC 15 DEX  saving throw. On Fail:
+               8d8 lightning damage / Half on a success.
+               2. In addition, each creature within 15ft of the striking point must also make
+               a DC 15 DEX saving throw. On Fail: ½  the full damage. Save: No
+               Damage"""
+       return print("Lightning Storm " + str(Hrs) + LightningStorm)
+
+   elif Weve == 12:
+       HailStorm = """
+       a. [Severe Wind] -80F
+           i. Ranged Attack Disadvantage 
+           ii. Disadvantage on [Hearing] Perception Checks
+       b. No Natural Light: [Blinded]
+           i. No [Sight] Perception Checks 
+           ii. Disadvantage on Attack Rolls
+       c. Extreme Cold for those without cold resistance.
+           i. 1/Hr DC 10 CON Saving Throw: On Fail +1 Exhaustion
+       d. Icy Monstrosity: 
+           i. 1/Hr DC 10 DEX Saving Throw: Fail 1d12 Bludgeoning or half on a success. 
+               1.  Wind Vortex* """ + str(rolld4) + """
+               a. [Severe Wind] -110F
+                   i. Ranged Attack Disadvantage 
+                   ii. Disadvantage on [Hearing] Perception Checks
+               b. Dim Natural Light: ½  Moon / Aurora / Twilight
+                   i. Disadvantage on [Sight] Perception Checks
+               c. Extreme Cold for those with natural cold resistance.
+                   i. 1/Hr DC 10 CON Saving Throw: Fail +1 Exhaustion 
+                   ii. No Cold Resist: 1/Hr DC 13 CON Saving Throw: Fail +1 Exhaustion.
+       e. Extinguishing Winds: The severe wind makes open flames, fog, tracks in the
+       snow, and non-magical flying impossible."""
+       return print("Hail Storm " + str(Hrs) + Hailstorm)
+
+
+#NAMES
+dwarfFemaleFirstNames = [
+  "Dalorbaehulda",
+  "Yandedrid",
+  "Fotaetrud",
+  "Botagith",
+  "Throkreaginn",
+  "Alfotgrabela",
+  "Hutealine",
+  "Sindrahilda",
+  "Brastralynn",
+  "Fizeat",
+  "Orsoick",
+  "Silgic",
+  "Whurgon",
+  "Umirsol",
+  "Alfostrunli",
+  "Dabick",
+  "Marfar",
+  "Rakhoum",
+  "Dhustoun",
+  "Gomdeastr",
+  "Broulgagar",
+  "Dhurbouserd",
+  "Umitgrolin",
+  "Bhasaetrud",
+  "Glarfahilda",
+  "Toregnirra",
+  "Lodwoudrid",
+  "Lorsobelyn",
+  "Brubroubo",
+  "Whukratelin",
+  "Bokgraetrude",
+  "Durilure",
+  "Duridrataine",
+  "Grootruilyn",
+  "Thargralyn",
+  "Tukkeagith",
+  "Brugrabelynn",
+  "Noraggulin",
+  "Tutmigith",
+  ]
+
+#SCRIPT
+#INTRO and MAIN
+print('Hello! Welcome to the DM QuickBook Beta Version 0!')
+Running = True
+while Running == True:
+   UserSelect = input("""Enter 1 for Weather Event, 2 for Wilderness Encounter,
+   or 3 for Arctic Descriptors. Type 0 to exit """)
+   if UserSelect == '1':
+       print("Weather Event: ")
+       WeatherEvent()
+   elif UserSelect == '2':
+       print('Wilderness Encounter(s): ')
+       WildernessEncounters()
+   elif UserSelect == '3':
+       print("How many descriptors?")
+       NumDescript = int(input())
+       while NumDescript != 0:
+           key = random.choice(list(ArcticWordsList))
+           NumDescript -= 1
+           print(ArcticWordsList[key])
+   elif UserSelect == '0':
+       Running = False
+   #elif input() == '3':
+       #print('NPC Gen?')
+       #input(print(dwarfFemaleFirstNames[lenroll(dwarfFemaleFirstNames)]))
+
+
+
+
+
+
+
+
+
+
+
+
+
