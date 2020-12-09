@@ -3,6 +3,8 @@ import random
 #import DwarvenNames
 #from DwarvenNames import dwarfFemaleFirstNames
 #Dictionaries
+
+#WEDict is the Wilderness Encounter table
 WEDict = {
    1:"One encounter in the morning (dawn to noon)",
    2:"One encounter in the afternoon (noon to dusk)",
@@ -13,6 +15,7 @@ WEDict = {
    7:"No Encounters",
    8:"No Encounters"}
 
+#ENCType is short for encounter type. This is Dictionary of encounters
 EncType = {1:"Yeti", 2:"Goliath Werebear", 3: "Drag Cats", 4:"Coldlight Walker",
    5: "Ice Troll", 6: "Frost Druid and Friends", 7: "Chardalyn Berserkers",
    8:"Frost Giant Riding Mammoth", 9: "Battlehammer Dwarves",
@@ -22,7 +25,8 @@ EncType = {1:"Yeti", 2:"Goliath Werebear", 3: "Drag Cats", 4:"Coldlight Walker",
    17:"Icewind Kobolds",18:"Humans", 19:"Herd of Beasts",
    20:"Perytons"}
 
-
+#ArcticWordList simply gives the user some descriptive words to help inspire their ebvironemntal description
+#All of these pertain to icewind dale, hence why they are arctic environmental descriptors in nature
 ArcticWordsList = {
    1:"freezing", 2:"icy", 3:"snowy", 4:"icy-cold", 5:"glacial", 6:"wintry", 7:"crisp", 8:"frosty", 9:"frigid",
    10:"bitter", 11:"biting", 12:"piercing", 13:"numbing", 14:"sharp", 15:"polar", 16:"arctic", 17:"nippy",
@@ -31,24 +35,20 @@ ArcticWordsList = {
    34: "unwelcoming", 35:"forbidding", 36:"stony", 37:"frigid", 38:"frosty", 39:"glacial",
    40:"austere", 41:"cold-blooded", 42:"cold-hearted", 43:"stony-hearted", 44:"standoffish", 45:"gelid"}
 
-
 #FUNCTIONS
 #Dice Rolls
 def rolld4():
    return randint(1, 4)
-
 def rolld8():
    return randint(1, 8)
-
 def roll12():
    return randint(1, 12)
-
 def rolld20():
    return randint(1, 20)
-
 def lenroll(list):
    return randint(1, len(list))
-
+   
+#Function calculating the number and type of wilderness encounters
 def WildernessEncounters():
    NumberE = WEDict[rolld8()]
    if NumberE == WEDict[7] or NumberE == WEDict[8]:
@@ -62,7 +62,6 @@ def WildernessEncounters():
    else:
        print(NumberE)
        return print(EncType[rolld20()])
-
 
 #WEATHER EVENTS
 def WeatherEvent():
@@ -215,6 +214,7 @@ def WeatherEvent():
 
 
 #NAMES
+#This is not Currently in use
 dwarfFemaleFirstNames = [
   "Dalorbaehulda",
   "Yandedrid",
@@ -258,9 +258,11 @@ dwarfFemaleFirstNames = [
   ]
 
 #SCRIPT
-#INTRO and MAIN
+#INTRO and MENU
+#Introduction
 print('Hello! Welcome to the DM QuickBook Beta Version 0!')
 Running = True
+#Menu Options
 while Running == True:
    UserSelect = input("""Enter 1 for Weather Event, 2 for Wilderness Encounter,
    or 3 for Arctic Descriptors. Type 0 to exit """)
